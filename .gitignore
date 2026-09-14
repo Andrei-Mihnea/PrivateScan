@@ -1,0 +1,41 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode user state and per-machine settings
+*.xcuserstate
+xcuserdata/
+*.xccheckout
+*.moved-aside
+
+# Xcode build products and derived data
+DerivedData/
+build/
+Build/
+*.build/
+
+# Xcode archives, app bundles, and generated symbols
+*.xcarchive
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# Test and preview results
+*.xcresult
+*.preview-thunk.swift
+
+# Swift Package Manager
+.build/
+Packages/
+
+# Swift generated source and tooling caches
+*.swiftsourceinfo
+.swiftpm/
+
+# CocoaPods (if introduced later)
+Pods/
+
+# Local signing and provisioning artifacts
+*.mobileprovision
+*.provisionprofile
