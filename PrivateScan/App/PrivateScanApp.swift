@@ -12,7 +12,7 @@ import SwiftUI
 struct PrivateScanApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 /// The first screen keeps the main job—starting a scan—within immediate reach.
 /// Saved documents will replace the empty state as local persistence is added.
 struct HomeView: View {
-    @State private var showsScannerPlaceholder = false
+    @State private var isShowingScannerPlaceholder = false
 
     var body: some View {
         NavigationStack {
@@ -30,14 +30,14 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        showsScannerPlaceholder = true
+                        isShowingScannerPlaceholder = true
                     } label: {
                         Image(systemName: "camera")
                     }
                     .accessibilityLabel("Start a new scan")
                 }
             }
-            .alert("Scanner coming next", isPresented: $showsScannerPlaceholder) {
+            .alert("Scanner coming next", isPresented: $isShowingScannerPlaceholder) {
                 Button("OK", role: .cancel) {}
             } message: {
                 Text("The next step is connecting this button to the secure, on-device document camera.")
@@ -77,7 +77,7 @@ struct HomeView: View {
             }
 
             Button {
-                showsScannerPlaceholder = true
+                isShowingScannerPlaceholder = true
             } label: {
                 Label("Start scanning", systemImage: "camera.fill")
                     .frame(maxWidth: .infinity)
