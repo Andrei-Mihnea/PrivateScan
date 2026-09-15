@@ -11,6 +11,7 @@ import SwiftUI
 /// Saved documents will replace the empty state as local persistence is added.
 struct HomeView: View {
     @State private var isShowingDocumentScanner = false
+    @State private var isShowingReview = false
     @State private var scanSession = ScanSession()
 
     var body: some View {
@@ -31,17 +32,24 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        isShowingDocumentScanner = true
+                        startScan()
                     } label: {
                         Image(systemName: "camera")
                     }
                     .accessibilityLabel("Start a new scan")
                 }
             }
-            .sheet(isPresented: $isShowingDocumentScanner) {
+            .sheet(isPresented: $isShowingDocumentScanner, onDismiss: {
+                if !scanSession.pages.isEmpty {
+                    isShowingReview = true
+                }
+            }) {
                 DocumentScanner(isPresented: $isShowingDocumentScanner) { pages in
                     scanSession.replacePages(with: pages)
                 }
+            }
+            .fullScreenCover(isPresented: $isShowingReview) {
+                ReviewView(pages: scanSession.pages)
             }
         }
         .tint(.indigo)
@@ -78,7 +86,7 @@ struct HomeView: View {
             }
 
             Button {
-                isShowingDocumentScanner = true
+                startScan()
             } label: {
                 Label("Start scanning", systemImage: "camera.fill")
                     .frame(maxWidth: .infinity)
@@ -118,6 +126,11 @@ struct HomeView: View {
                 .foregroundStyle(.red)
         }
         .accessibilityElement(children: .combine)
+    }
+    
+    private func startScan() {
+        scanSession.reset()
+        isShowingDocumentScanner = true
     }
 }
 
